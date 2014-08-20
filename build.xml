@@ -5,6 +5,9 @@
     </description>
 	
 	<property name="jdk.version" value="1.5"/>
+	<property name="tomcat.home" value="E:/servers/apache-tomcat-6.0.41"/>
+	<property name="tomcat.webapps" value="${tomcat.home}/webapps"/>
+	<property name="tomcat.work" value="${tomcat.home}/work"/>
 	<property name="src" location="src"/>
 	<property name="config" location="config"/>
 	<property name="test" location="test"/>
@@ -59,6 +62,30 @@
 		<delete includeemptydirs="true">
 			<fileset dir="${towar}" includes="**/*" />
 		</delete>
+	</target>
+	
+	<target name="deployme" depends="warme,undeployme" description="部署到tomcat"> 
+		<move tofile="${tomcat.webapps}/cms.war" file="${dist}/CMS_${now_yyyyMMdd_HHmmss}.war" overwrite="true" />
+		
+		<exec executable="${tomcat.home}/bin/startup.bat" spawn="true" vmlauncher="false">  
+	       <env key="CATALINA_HOME" value="${tomcat.home}" />  
+	       <arg line="/c start ${tomcat.home}/bin/startup.bat" />
+	  	</exec>  
+	</target>
+	
+	<target name="undeployme" description="解部署并停止tomcat"> 
+		<delete includeemptydirs="true">
+			<fileset dir="${tomcat.work}" includes="**/*" />
+			<fileset dir="${tomcat.webapps}" includes="cms"/>
+		</delete>
+
+		<exec executable="${tomcat.home}/bin/shutdown.bat" spawn="true" vmlauncher="false">  
+            <env key="CATALINA_HOME" value="${tomcat.home}" />  
+	        <arg line="/c start ${tomcat.home}/bin/shutdowm.bat" />  
+	    </exec>  
+        <waitfor maxwait="3" maxwaitunit="second">  
+            <available file="errors.log" />  
+        </waitfor>
 	</target>
 	
 	<target name="clearnme" description="删除临时打包文件以及旧的WAR包" >

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="dsns-cms" default="warme" basedir=".">
+	<description>
+        DSNS-CMS build file
+    </description>
+	
+	<!-- 常用目录设置 -->
+	<property name="src" location="src"/>
+	<property name="config" location="config"/>
+	<property name="test" location="test"/>
+	<property name="html" location="html"/>
+	<property name="webinf" location="${html}/WEB-INF"/>
+	<property name="lib" location="lib"/>
+	<property name="dist"  location="dist"/>
+	<property name="towar"  location="${dist}/towar"/>
+	<property name="towar_webinf" location="${towar}/WEB-INF"/>
+	<property name="towar_classes" location="${towar_webinf}/classes"/>
+	<property name="towar_lib" location="${towar_webinf}/lib"/>
+
+	<path id="classpath">
+		<fileset dir="${lib}" includes="**/*.jar"/>
+	</path>
+	
+	<tstamp>
+		<format property="now_yyyyMMdd_HHmmss" pattern="yyyyMMdd_HHmmss" locale="en"/>
+	</tstamp>
+	
+    <target name="init" description="初始化，新建所需目录等">
+    	<mkdir dir="${towar_classes}"/>
+    	<mkdir dir="${towar_lib}"/>
+    </target>
+
+	<target name="compileme" depends="clearnme,init" description="编译源代码" >
+		<delete includeemptydirs="true">
+			<fileset dir="${towar_classes}" includes="**/*" />
+		</delete>
+		<copy todir="${towar_classes}">
+			<fileset dir="${config}" includes="**/*" />
+		</copy>
+		<javac srcdir="${src}" destdir="${towar_classes}">
+			<classpath refid="classpath" />
+		</javac>
+		<jar destfile="${towar_lib}/cms_${now_yyyyMMdd_HHmmss}.jar" basedir="${towar_classes}" />
+		
+		<copy todir="${towar_lib}">
+			<fileset dir="${lib}" includes="**/*.jar" />
+		</copy>
+		<copy todir="${towar}">
+			<fileset dir="${html}" includes="**/*" excludes="**/WEB-INF/**/*" />
+		</copy>
+	</target>
+
+	<target name="warme" depends="compileme" description="将需要打包的文件拷贝到临时目录后打包" >
+		<war destfile="${dist}/CMS_${now_yyyyMMdd_HHmmss}.war" webxml="${webinf}/web.xml">
+			<fileset dir="${towar}" includes="**/*" excludes="**/WEB-INF/classes/**/*" />
+		</war>
+		
+		<delete includeemptydirs="true">
+			<fileset dir="${towar}" includes="**/*" />
+		</delete>
+	</target>
+	
+	<target name="clearnme" description="删除临时打包文件以及旧的WAR包" >
+		<delete includeemptydirs="true">
+			<fileset dir="${dist}" includes="**/*" />
+		</delete>
+	</target>
+</project>

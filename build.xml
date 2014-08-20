@@ -76,16 +76,19 @@
 	<target name="undeployme" description="解部署并停止tomcat"> 
 		<delete includeemptydirs="true">
 			<fileset dir="${tomcat.work}" includes="**/*" />
-			<fileset dir="${tomcat.webapps}" includes="cms"/>
+			<fileset dir="${tomcat.webapps}" includes="*.war"/>
+			<fileset dir="${tomcat.webapps}" includes="cms/**"/>
 		</delete>
 
 		<exec executable="${tomcat.home}/bin/shutdown.bat" spawn="true" vmlauncher="false">  
             <env key="CATALINA_HOME" value="${tomcat.home}" />  
 	        <arg line="/c start ${tomcat.home}/bin/shutdowm.bat" />  
 	    </exec>  
+		<!--
         <waitfor maxwait="3" maxwaitunit="second">  
             <available file="errors.log" />  
         </waitfor>
+		-->
 	</target>
 	
 	<target name="clearnme" description="删除临时打包文件以及旧的WAR包" >

@@ -52,7 +52,7 @@
 			<classpath refid="classpath" />
 		</javac>
 		<!-- 将临时打包目录classes目录中除log4j.properties的文件打成jar包放到lib目录下 -->
-		<jar destfile="${towar_lib}/cms_${now_yyyyMMdd_HHmmss}.jar" basedir="${towar_classes}" excludes="**/*.properties"/>
+		<jar destfile="${towar_lib}/cms.jar" basedir="${towar_classes}" excludes="**/*.properties"/>
 		<!-- 将lib目录下的jar包复制到临时打包目录的lib目录 -->
 		<copy todir="${towar_lib}" overwrite="true">
 			<fileset dir="${lib}" includes="**/*.jar" />

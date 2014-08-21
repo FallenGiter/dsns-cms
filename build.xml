@@ -37,21 +37,28 @@
     </target>
 
 	<target name="compileme" depends="clearnme,init" description="编译源代码" >
+		<!-- 删除临时打包目录中classes目录里面的所有文件 -->
 		<delete includeemptydirs="true">
 			<fileset dir="${towar_classes}" includes="**/*" />
 		</delete>
+		
+		<!-- 将config目录的文件复制到临时打包目录的classes目录内 -->
 		<copy todir="${towar_classes}">
 			<fileset dir="${config}" includes="**/*" />
 		</copy>
 		
+		<!-- 编译源代码到临时打包目录的classes目录 -->
 		<javac srcdir="${src}" destdir="${towar_classes}" source="${jdk.version}" target="${jdk.version}" encoding="utf-8" includeantruntime="false" optimize="true">
 			<classpath refid="classpath" />
 		</javac>
-		<jar destfile="${towar_lib}/cms_${now_yyyyMMdd_HHmmss}.jar" basedir="${towar_classes}" />
-		
+		<!-- 将临时打包目录classes目录中除log4j.properties的文件打成jar包放到lib目录下 -->
+		<jar destfile="${towar_lib}/cms_${now_yyyyMMdd_HHmmss}.jar" basedir="${towar_classes}" excludes="**/*.properties"/>
+		<!-- 将lib目录下的jar包复制到临时打包目录的lib目录 -->
 		<copy todir="${towar_lib}" overwrite="true">
 			<fileset dir="${lib}" includes="**/*.jar" />
 		</copy>
+		
+		<!-- 将html目录下除WEB-INF目录下的文件(log4j.properties除外)复制到临时打包目录 -->
 		<copy todir="${towar}" overwrite="true">
 			<fileset dir="${html}" includes="**/*" excludes="**/WEB-INF/**/*" />
 		</copy>
@@ -60,6 +67,7 @@
 	<target name="warme" depends="compileme" description="将需要打包的文件拷贝到临时目录后打包" >
 		<war destfile="${dist}/CMS_${now_yyyyMMdd_HHmmss}.war" webxml="${webinf}/web.xml">
 			<fileset dir="${towar}" includes="**/*" excludes="**/WEB-INF/classes/**/*" />
+			<fileset dir="${towar}" includes="**/WEB-INF/classes/*.properties" />
 		</war>
 	</target>
 	
@@ -73,21 +81,20 @@
 	</target>
 	
 	<target name="undeployme" description="解部署并停止tomcat"> 
+		<exec executable="${tomcat.home}/bin/shutdown.bat" spawn="true" vmlauncher="false">  
+            <env key="CATALINA_HOME" value="${tomcat.home}" />  
+	        <arg line="/c start ${tomcat.home}/bin/shutdowm.bat" />  
+	    </exec>  
+		
+        <waitfor maxwait="3" maxwaitunit="second">  
+            <available file="errors.log" />  
+        </waitfor>
+		
 		<delete includeemptydirs="true">
 			<fileset dir="${tomcat.work}" includes="**/*" />
 			<fileset dir="${tomcat.webapps}" includes="*.war"/>
 			<fileset dir="${tomcat.webapps}" includes="cms/**"/>
 		</delete>
-
-		<exec executable="${tomcat.home}/bin/shutdown.bat" spawn="true" vmlauncher="false">  
-            <env key="CATALINA_HOME" value="${tomcat.home}" />  
-	        <arg line="/c start ${tomcat.home}/bin/shutdowm.bat" />  
-	    </exec>  
-		<!--
-        <waitfor maxwait="3" maxwaitunit="second">  
-            <available file="errors.log" />  
-        </waitfor>
-		-->
 	</target>
 	
 	<target name="clearnme" description="删除临时打包文件以及旧的WAR包" >

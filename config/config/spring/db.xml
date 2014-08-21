@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<context:annotation-config />
+	<!-- <context:component-scan base-package="ailk.phonestore" /> -->
+
+	<!-- <bean id="nativeJdbcExtractor" class="org.springframework.jdbc.support.nativejdbc.CommonsDbcpNativeJdbcExtractor" lazy-init="true" />   
+    <bean id="oracleLobHandler" class="org.springframework.jdbc.support.lob.OracleLobHandler" lazy-init="true">   
+	     <property name="nativeJdbcExtractor">
+	         <ref bean="nativeJdbcExtractor" />   
+	     </property>   
+	 </bean>  -->
+	 
+    <bean id="oracleLobHandler" class="org.springframework.jdbc.support.lob.DefaultLobHandler" lazy-init="true" />   
+	
+  	<bean id="datasource" class="org.logicalcobwebs.proxool.ProxoolDataSource">
+	    <property name="driver" value="com.mysql.jdbc.Driver"/>
+	    <property name="driverUrl" value="jdbc:mysql://localhost:3306/cms"/>
+	    <property name="user" value="root"/>
+	    <property name="password" value="root"/>
+	    
+	    
+	    
+	    <!-- <property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+	    <property name="driverUrl" value="jdbc:oracle:thin:@(description=(ADDRESS_LIST=(address=(protocol=tcp)(host=172.16.9.22)(port=1521))(load_balance=no))(connect_data=(service_name=crmtest)(failover_mode=(type=session)(method=basic)(retries=5)(delay=15))))"/>
+	    <property name="user" value="dzchannel"/>
+	    <property name="password" value="dzchannel"/> -->
+	    
+	    
+	    <property name="alias" value="wangting.proxool.pool" />
+	    <property name="prototypeCount" value="5" />
+	    <property name="maximumConnectionCount" value="2" />
+	    <property name="minimumConnectionCount" value="2" />
+	    <property name="simultaneousBuildThrottle" value="2" />
+	    <property name="houseKeepingTestSql" value="select 1 from dual" />
+  	</bean>
+
+    <bean id="sessionFactory"  class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">    
+    	<property name="dataSource" ref="datasource" />
+    	<property name="lobHandler">
+			<ref bean="oracleLobHandler" />
+		</property>
+        <property name="hibernateProperties">    
+            <props>    
+                <!-- <prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop> -->    
+               
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>    
+                
+                <prop key="hibernate.cglib.use_reflection_optimizer">true</prop>
+                <prop key="hibernate.connection.autocommit">true</prop>    
+                <prop key="hibernate.proxool.existing_pool">false</prop>    
+                <prop key="hibernate.show_sql">true</prop> 
+                <prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop> 
+                <prop key="hibernate.cache.provider_configuration_file_resource_path">/config/ehcache/ehcache.xml</prop> 
+                <prop key="hibernate.cache.use_second_level_cache">true</prop> 
+                <prop key="hibernate.cache.use_query_cache">true</prop> 
+                <prop key="hibernate.connection.release_mode">after_transaction</prop>   
+            </props>    
+        </property>    
+
+		<property name="mappingLocations">
+			<value>**/*.hbm.xml</value>
+		</property> 
+    </bean> 
+	
+	<bean id="txMng" class="org.springframework.orm.hibernate3.HibernateTransactionManager">      
+       <property name="sessionFactory" ref="sessionFactory"/>      
+   </bean>
+   
+   <tx:annotation-driven transaction-manager="txMng"/>
+</beans>

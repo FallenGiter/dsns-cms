@@ -1,0 +1,28 @@
+package org.dsns.channel.web;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.log4j.Logger;
+import org.dsns.channel.service.interfaces.IChannelSV;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+@Controller
+public class ChannelController {
+	@Autowired
+	private IChannelSV channelSV;
+	
+	@RequestMapping("/hellYeah")
+	public ModelAndView hellYeah(HttpServletRequest req) {
+		ModelAndView rtn = new ModelAndView();
+		rtn.addObject("fuck", "damn");
+		
+		channelSV.test();
+		
+		Logger.getLogger(ChannelController.class).debug("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+		
+		return rtn;
+	}
+}

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<mvc:resources location="/static/" mapping="/static/**" />
+	<mvc:resources location="/uploaded/" mapping="/uploaded/**" />
+
+	<!-- Scans the classpath of this application for @Components to deploy as  beans -->
+	<context:component-scan base-package="org.dsns" />
+
+	<!-- Configures the @Controller programming model -->
+	<mvc:annotation-driven />
+	
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="synchronizeOnSession" value="true" />
+	</bean>
+
+	<!-- Forwards requests to the "/" resource to the "welcome" view -->
+	<mvc:view-controller path="/" view-name="index" />
+
+	<!-- Resolves view names to protected .jsp resources within the /WEB-INF/views directory -->
+	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="ignoreAcceptHeader" value="true" />
+		<property name="defaultContentType" value="text/html" />
+		<property name="mediaTypes">
+			<map>
+				<entry key="html" value="text/html" />
+				<entry key="json" value="application/json" />
+				<entry key="xml" value="application/xml" />
+			</map>
+		</property>
+		<property name="favorParameter" value="false" />
+		<property name="viewResolvers">
+			<list>
+				<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+					<property name="prefix" value="/WEB-INF/jsps/"></property>
+					<property name="suffix" value=".jsp"></property>
+				</bean>
+			</list>
+		</property>
+		<property name="defaultViews">
+			<list>
+				<bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean class="org.springframework.web.context.support.ServletContextAttributeExporter">  
+        <property name="attributes">  
+            <map>  
+                <entry key="staticDataUtils">
+                    <ref bean="staticDataUtils"/>
+                </entry>
+            </map>  
+        </property>  
+    </bean>
+    
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+</beans>

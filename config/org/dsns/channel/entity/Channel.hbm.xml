@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="org.dsns.channel.entity">
+    <class name="Channel" table="cms_channel" >
+		<meta attribute="sync-DAO">false</meta>
+		<cache usage="read-write"/>
+
+        <id name="id" type="java.lang.Integer">
+        	<column name="id"></column>
+        	<generator class="identity" />
+        </id>
+        
+        <property name="name" type="java.lang.String">
+            <column name="name" length="24" />
+        </property>
+        <property name="alias" type="java.lang.String">
+            <column name="alias" length="24" />
+        </property>
+        <property name="namespace" type="java.lang.String">
+            <column name="namespace" length="12" />
+        </property>
+        <property name="description" type="java.lang.String">
+            <column name="description" length="240" />
+        </property>
+        <property name="ordseq" type="int">
+            <column name="ordseq" length="4" />
+        </property>
+        
+        <many-to-one name="parent" column="parent" class="Channel" />
+        <set name="childs">
+        	<key column="parent" />
+        	<one-to-many class="Channel"/>
+        </set>
+    </class>
+</hibernate-mapping>

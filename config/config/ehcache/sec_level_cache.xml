@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		xsi:noNamespaceSchemaLocation="http://ehcache.sf.net/ehcache.xsd"
+		name="sec_level_cache"
+		updateCheck="false">
+	<diskStore path="temp/eheache" />
+
+	<defaultCache maxElementsInMemory="10000" 
+				  eternal="false"
+		          timeToIdleSeconds="3600" 
+		          timeToLiveSeconds="7200"
+		          overflowToDisk="false">
+	</defaultCache>
+
+	<!-- <cache name="com.jeecms.core.entity.Website" 
+		   maxElementsInMemory="3000" 
+		   eternal="true" 
+		   overflowToDisk="true" /> -->
+</ehcache>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="org.dsns.template.entity">
+    <class name="TemplateCategory" table="cms_template_category" >
+		<meta attribute="sync-DAO">false</meta>
+		<cache usage="read-write"/>
+
+        <id name="id" type="java.lang.Integer">
+        	<column name="id"></column>
+        	<generator class="identity" />
+        </id>
+        
+        <property name="name" type="java.lang.String">
+            <column name="name" length="24" />
+        </property>
+        <property name="ordseq" type="int">
+            <column name="ordseq" length="4" />
+        </property>
+        
+        <many-to-one name="parent" column="parent" class="TemplateCategory" />
+        <set name="childs">
+        	<key column="parent" />
+        	<one-to-many class="TemplateCategory"/>
+        </set>
+        
+        <set name="templates">
+        	<key column="category" />
+        	<one-to-many class="Template"/>
+        </set>
+    </class>
+</hibernate-mapping>

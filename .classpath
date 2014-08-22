@@ -17,7 +17,6 @@
 	<classpathentry kind="lib" path="lib/commons-pool2-2.2-tests.jar"/>
 	<classpathentry kind="lib" path="lib/commons-pool2-2.2.jar"/>
 	<classpathentry kind="lib" path="lib/dom4j-1.6.1.jar"/>
-	<classpathentry kind="lib" path="lib/ehcache-1.2.3.jar"/>
 	<classpathentry kind="lib" path="lib/freemarker.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-core-3.3.1.GA.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-ehcache-3.3.1.GA.jar"/>
@@ -50,5 +49,6 @@
 	<classpathentry kind="lib" path="lib/spring-webmvc-3.2.5.RELEASE.jar"/>
 	<classpathentry kind="lib" path="lib/xml-apis-1.0.b2.jar"/>
 	<classpathentry kind="lib" path="lib/servlet-api-2.5.jar"/>
+	<classpathentry kind="lib" path="lib/ehcache-2.7.4.jar"/>
 	<classpathentry kind="output" path="html/WEB-INF/lib"/>
 </classpath>

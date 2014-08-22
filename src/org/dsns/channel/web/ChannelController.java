@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.dsns.channel.service.interfaces.IChannelSV;
+import org.dsns.engine.service.interfaces.ICollectorSV;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class ChannelController {
 	@Autowired
 	private IChannelSV channelSV;
+	@Autowired
+	private ICollectorSV collector;
 	
 	@RequestMapping("/hellYeah")
 	public ModelAndView hellYeah(HttpServletRequest req) {
@@ -20,6 +23,12 @@ public class ChannelController {
 		rtn.addObject("fuck", "damn");
 		
 		channelSV.test();
+		try {
+			collector.collect();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		Logger.getLogger(ChannelController.class).debug("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
 		

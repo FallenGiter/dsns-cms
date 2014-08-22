@@ -64,7 +64,7 @@
                 <prop key="hibernate.proxool.existing_pool">false</prop>    
                 <prop key="hibernate.show_sql">true</prop> 
                 <prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop> 
-                <prop key="hibernate.cache.provider_configuration_file_resource_path">/config/ehcache/ehcache.xml</prop> 
+                <prop key="hibernate.cache.provider_configuration_file_resource_path">/config/ehcache/sec_level_cache.xml</prop> 
                 <prop key="hibernate.cache.use_second_level_cache">true</prop> 
                 <prop key="hibernate.cache.use_query_cache">true</prop> 
                 <prop key="hibernate.connection.release_mode">after_transaction</prop>   

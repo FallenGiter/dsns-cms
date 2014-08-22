@@ -27,11 +27,15 @@
         <property name="ordseq" type="int">
             <column name="ordseq" length="4" />
         </property>
+        <property name="state" type="int">
+            <column name="state" length="4" />
+        </property>
         
         <many-to-one name="parent" column="parent" class="Channel" />
         <set name="childs">
         	<key column="parent" />
         	<one-to-many class="Channel"/>
         </set>
+        <many-to-one name="website" column="website" class="org.dsns.website.entity.Website" />
     </class>
 </hibernate-mapping>

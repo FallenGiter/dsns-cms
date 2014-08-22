@@ -3,13 +3,19 @@ package org.dsns.template.entity;
 import java.io.Serializable;
 import java.util.Set;
 
+import org.dsns.website.entity.Website;
+
 public class TemplateCategory implements Serializable {
 	private Integer id;
 	private String name;
 	private int ordseq;
+	private int state;
 	private Set<Template> templates;
 	private TemplateCategory parent;
 	private Set<TemplateCategory> childs;
+	
+	private Website website;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -28,6 +34,12 @@ public class TemplateCategory implements Serializable {
 	public void setOrdseq(int ordseq) {
 		this.ordseq = ordseq;
 	}
+	public int getState() {
+		return state;
+	}
+	public void setState(int state) {
+		this.state = state;
+	}
 	public Set<Template> getTemplates() {
 		return templates;
 	}
@@ -45,5 +57,11 @@ public class TemplateCategory implements Serializable {
 	}
 	public void setChilds(Set<TemplateCategory> childs) {
 		this.childs = childs;
+	}
+	public Website getWebsite() {
+		return website;
+	}
+	public void setWebsite(Website website) {
+		this.website = website;
 	}
 }

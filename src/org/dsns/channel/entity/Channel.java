@@ -3,6 +3,8 @@ package org.dsns.channel.entity;
 import java.io.Serializable;
 import java.util.Set;
 
+import org.dsns.website.entity.Website;
+
 public class Channel implements Serializable {
 	private Integer id;
 	private String name;
@@ -10,8 +12,10 @@ public class Channel implements Serializable {
 	private String namespace;
 	private String description;
 	private int ordseq;
+	private int state;
 	private Channel parent;
 	private Set<Channel> childs;
+	private Website website;
 	
 	public Integer getId() {
 		return id;
@@ -49,6 +53,12 @@ public class Channel implements Serializable {
 	public void setOrdseq(int ordseq) {
 		this.ordseq = ordseq;
 	}
+	public int getState() {
+		return state;
+	}
+	public void setState(int state) {
+		this.state = state;
+	}
 	public Channel getParent() {
 		return parent;
 	}
@@ -60,5 +70,11 @@ public class Channel implements Serializable {
 	}
 	public void setChilds(Set<Channel> childs) {
 		this.childs = childs;
+	}
+	public Website getWebsite() {
+		return website;
+	}
+	public void setWebsite(Website website) {
+		this.website = website;
 	}
 }

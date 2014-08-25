@@ -42,7 +42,6 @@ public class EngineSV implements IEngineSV {
 		
 		FileUtils.ensureFile(new File(template.getGeneratedUri()));
 		
-		
 		t.process(model, sw);
 		
 		sw.close();

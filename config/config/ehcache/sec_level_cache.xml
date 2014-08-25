@@ -3,7 +3,7 @@
 		xsi:noNamespaceSchemaLocation="http://ehcache.sf.net/ehcache.xsd"
 		name="sec_level_cache"
 		updateCheck="false">
-	<diskStore path="temp/eheache" />
+	<diskStore path="temp/eheache/hibernate" />
 
 	<defaultCache maxElementsInMemory="10000" 
 				  eternal="false"

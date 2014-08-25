@@ -3,7 +3,7 @@
 		xsi:noNamespaceSchemaLocation="http://ehcache.sf.net/ehcache.xsd"
 		name="dsns_cms_sys_cache"
 		updateCheck="false">
-	<diskStore path="temp/eheache" />
+	<diskStore path="temp/eheache/sys" />
 
 	<cache name="org.dsns.template.Template" 
 		   maxElementsInMemory="3000" 

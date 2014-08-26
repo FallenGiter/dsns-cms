@@ -3,7 +3,7 @@ package org.dsns.common.service.interfaces;
 import java.io.Serializable;
 import java.util.List;
 
-import org.dsns.common.beans.page.Page;
+import org.dsns.common.model.page.Page;
 
 public interface IBaseSV<T extends Serializable> {
 	public T save(T entity);

@@ -2,9 +2,10 @@ package org.dsns.common.service.impls;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
-import org.dsns.common.beans.page.Page;
 import org.dsns.common.dao.interfaces.IBaseDao;
+import org.dsns.common.model.page.Page;
 import org.dsns.common.service.interfaces.IBaseSV;
 import org.springframework.transaction.annotation.Transactional;
 

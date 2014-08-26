@@ -4,6 +4,7 @@
 	<classpathentry including="**/*.jar" kind="src" output="html/WEB-INF/lib" path="lib"/>
 	<classpathentry kind="src" output="html/WEB-INF/classes" path="config"/>
 	<classpathentry kind="src" output="html/WEB-INF/classes" path="test"/>
+	<classpathentry kind="src" path="tools"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/log4j-1.2.17.jar"/>
 	<classpathentry kind="lib" path="lib/antlr-2.7.6.jar"/>

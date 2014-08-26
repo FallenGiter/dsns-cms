@@ -3,7 +3,7 @@ package org.dsns.common.dao.interfaces;
 import java.io.Serializable;
 import java.util.List;
 
-import org.dsns.common.beans.page.Page;
+import org.dsns.common.model.page.Page;
 import org.hibernate.criterion.Criterion;
 
 public interface IBaseDao<T extends Serializable> {

@@ -1,4 +1,4 @@
-package org.dsns.common.beans.page;
+package org.dsns.common.model.page;
 
 import java.io.Serializable;
 import java.util.ArrayList;

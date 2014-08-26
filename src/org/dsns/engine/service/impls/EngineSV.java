@@ -25,7 +25,7 @@ public class EngineSV implements IEngineSV {
 		cfg = new Configuration();
 		try {
 //			cfg.setSettings();
-			cfg.setDirectoryForTemplateLoading(new File("/WEB-INF/ftl_templates"));
+			cfg.setDirectoryForTemplateLoading(new File("E:\\parttime\\dsns-cms\\html\\WEB-INF\\ftl_templates"));
 			
 			
 		} catch (IOException e) {

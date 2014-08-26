@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-import org.dsns.common.beans.page.Page;
 import org.dsns.common.dao.interfaces.IBaseDao;
+import org.dsns.common.model.page.Page;
 import org.hibernate.Criteria;
 import org.hibernate.LockMode;
 import org.hibernate.Query;
